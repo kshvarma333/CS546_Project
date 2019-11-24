@@ -1,11 +1,11 @@
 {
   "name": "Project",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "seed": "node ./tasks/seed.js",
-    "start": "node ./index.js"
+    "start": "node ./app.js"
   },
   "author": "",
   "license": "ISC",
