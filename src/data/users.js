@@ -1,6 +1,7 @@
 const mongoCollections = require('./mongoCollections');
 const users = mongoCollections.users;
-//const {ObjectId}=require('mongodb');
+const events = require("./events");
+const {ObjectId}=require('mongodb');
 
 const exportedMethods = {
   async getAllUsers() {
@@ -11,6 +12,17 @@ const exportedMethods = {
   async getUser(id) {
     const usersCollection = await users();
     const user = await usersCollection.findOne({_id: ObjectId(id)});
+    let allEvents=[]
+    for (const event of user.regdEvents){
+      try{
+        const info = await events.getEvent(event); 
+      allEvents.push(info);
+      }
+      catch(e){
+        console.log(e);
+      }
+    }
+    user.regdEvents=allEvents;
     return user;
   },
   async deleteUser(id) {
@@ -37,14 +49,14 @@ const exportedMethods = {
 
   async setUserFollowEvent(uid,eid) {
     const usersCollection = await users();
-    const updatedUser= { $addToSet:{events: eid}
+    const updatedUser= { $addToSet:{regdEvents: ObjectId(eid)}
     };
-    const updatedInfo = await usersCollection.updateOne({ _id: ObjectId(id) }, updatedUser);
+    const updatedInfo = await usersCollection.updateOne({ _id: ObjectId(uid) }, updatedUser);
     return updatedInfo;
   },
   async unsetUserFollowEvent(uid,eid) {
     const usersCollection = await users();
-    const updatedInfo = await usersCollection.updateOne({_id: ObjectId(id)}, {$pull: {posts: ObjectId(eid) }});
+    const updatedInfo = await usersCollection.updateOne({_id: ObjectId(uid)}, {$pull: {regdEvents: ObjectId(eid) }});
     return updatedInfo;
   },
 };

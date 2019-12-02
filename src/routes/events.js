@@ -2,38 +2,47 @@ const express = require('express');
 const router = express.Router();
 const data = require('../data');
 const events = data.events;
-
+const users = data.users;
 
 router.get('/', async (req,res) => {
 
 let allEvents = await events.getAllEvents();
-res.status(200).json(allEvents);
-// res.render('single');
+res.render('events/multiple',{events: allEvents});
 
 });
 
-router.get('/:id', async (req, res) => {
-if(req.params.id === 'topfive'){
-res.redirect('/events/topfive');
-}
-let eventId = req.params.id;
-eventId = eventId.toString();
-console.log("ID");
-try{
-let getEv = await events.getEvent(eventId);
+router.get('/update/:id', async (req,res) => {
 
-res.status(200).json(getEv);
-// res.render('single');
-}catch(e){
-  res.sendStatus(500).json();
-  console.log(e);
+  let eventId = req.params.id;
+
+  let getEv = await events.getEvent(eventId);
+  res.render('events/update',{event: getEv});
+  
+  });
+
+router.get('/create', async (req,res) => {
+
+  let allEvents = await events.getAllEvents();
+  res.render('events/create');
+  
+  });
+
+router.get('/single/:id', async (req, res) => {
+let eventId = req.params.id;
+let user = await users.getUser("5de3eb58e025f58f90e311f2");
+let getEv = await events.getEvent(eventId);
+if (!getEv){
+  res.redirect('/events');
+  return;
 }
+res.render('events/single',{event: getEv, registered: false});
+// res.render('single');
 
 });
 
 router.get('/topfive', async(req, res) => {
-  const getTopFive = await events.getTopEvents();
-  res.status(200).json(getTopFive);
+  let getTopFive = await events.getTopEvents();
+  res.render('events/multiple',{events: getTopFive});
   // res.render()
 })
 
@@ -43,26 +52,29 @@ router.post('/', async (req,res) => {
   throw "Error"
 
   const newEvent = await events.createEvent(eventInfo);
-
-  res.status(200).json(newEvent);
-  // res.render()
+  res.redirect('events/single/'+newEvent._id)
 
 });
 
-router.delete('/:id', async(req, res) => {
+router.post('/single/:id', async(req, res) => {
   let Id = req.params.id;
-  if(typeof(Id) !== "string")
-  Id=Id.toString();
+  if (req.body.type=="delete"){
   try{
   const delEvent = await events.deleteEvent(Id);
-  res.status(200).json(delEvent.name + " event has been deleted !");
+  res.redirect('events');
 }catch(e){
   console.log(e);
 }
+  }
+  else if (req.body.type=="update"){
+    const update = await events.updateEvent(id, updateInfo);
+    res.status(200).json(update);
+
+  }
 });
 
 
-router.put('/:id', async(req, res) => {
+router.post('/update/:id', async(req, res) => {
   let id = req.params.id;
 
   if(typeof(id) !== "string")
@@ -74,7 +86,7 @@ router.put('/:id', async(req, res) => {
   throw "Provide new information";
   try{
   const update = await events.updateEvent(id, updateInfo);
-  res.status(200).json(update);
+  res.redirect('/events/single/'+id)
 }catch(e){
   console.log(e);
 }

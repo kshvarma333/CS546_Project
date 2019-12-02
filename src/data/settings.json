@@ -1,6 +1,6 @@
 {
     "mongoConfig": {
-      "serverUrl": "mongodb://project:test1234@18.206.135.3:27017/",
+      "serverUrl": "mongodb://localhost:27017/",
       "database": "project"
     }
   }

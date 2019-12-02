@@ -1,7 +1,19 @@
-<head>
-    <meta charset="utf-8">
-    <title>Event Found</title>
-    <link rel="stylesheet" href="/public/site.css">
-</head>
-<body>
-</body>
+<section>
+<h2>Welcome Trekker</h2></br>
+<div id='eventinfo'>
+<h3>Event Name: {{event.name}}</h3><br>
+ Location: {{event.location}}<br>
+
+<form method='post'><input type="text" name='type' value="delete" hidden><input type="text" name='id' value={{event._id}} hidden> <input type="submit" value="Delete"></form>
+<a href='/events/update/{{event._id}}'><input type="submit" value="Update Record"></a>
+
+{{#if registered }}
+<form method='post' action="/users/unregevent"><input type="text" name='eventId' value={{event._id}} hidden> <input type="submit" value="Unregister"></form>
+
+{{else}}
+<form method='post' action="/users/regevent"><input type="text" name='eventId' value={{event._id}} hidden> <input type="submit" value="Register"></form>
+
+{{/if}}
+</div>
+</section>
+<link href="../../public/site.css" rel="stylesheet">
