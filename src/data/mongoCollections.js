@@ -20,3 +20,4 @@ module.exports = {
   events: getCollectionFn("events"),
   users: getCollectionFn("users")
 };
+
