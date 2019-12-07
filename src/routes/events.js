@@ -14,7 +14,7 @@ res.render('events/multiple',{events: allEvents});
 router.get('/update/:id', async (req,res) => {
 
   let eventId = req.params.id;
-
+  console.log(eventId);
   let getEv = await events.getEvent(eventId);
   res.render('events/update',{event: getEv});
   
@@ -23,16 +23,17 @@ router.get('/update/:id', async (req,res) => {
 router.get('/create', async (req,res) => {
 
   let allEvents = await events.getAllEvents();
-  res.render('events/create');
+  res.render('/create');
   
   });
 
 router.get('/single/:id', async (req, res) => {
 let eventId = req.params.id;
-let user = await users.getUser("5de3eb58e025f58f90e311f2");
+// let user = await users.getUser("5de3eb58e025f58f90e311f2");
 let getEv = await events.getEvent(eventId);
+console.log(getEv);
 if (!getEv){
-  res.redirect('/events');
+  res.redirect('/');
   return;
 }
 res.render('events/single',{event: getEv, registered: false});
@@ -50,10 +51,12 @@ router.post('/', async (req,res) => {
   let eventInfo = req.body;
   if(!eventInfo)
   throw "Error"
-
+  try{
   const newEvent = await events.createEvent(eventInfo);
   res.redirect('events/single/'+newEvent._id)
-
+  }catch(e){
+    res.sendStatus(500)
+  }
 });
 
 router.post('/single/:id', async(req, res) => {
@@ -61,7 +64,7 @@ router.post('/single/:id', async(req, res) => {
   if (req.body.type=="delete"){
   try{
   const delEvent = await events.deleteEvent(Id);
-  res.redirect('events');
+  res.redirect('/');
 }catch(e){
   console.log(e);
 }

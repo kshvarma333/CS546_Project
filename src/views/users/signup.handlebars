@@ -1,0 +1,27 @@
+<h1> Sign Up </h1>
+
+<form method='post' action='/users/newuser'> 
+    <label for='firstName'>First Name:
+        <input type='text' name='firstName' id='firstName' class='firstName' required/>
+    </label>
+    <br><br>
+    <label for='lastName'> Last Name:
+        <input type='text' name='lastName' id='lastName' class='lastName' required/>
+    </label>
+    <br><br>
+    <label for='location'>Location:
+        <input type='text' name='location' id='location' class='location' />
+    </label>
+    <br><br>
+    <label for='username'> Login ID:
+        <input type='text' name='loginID' id='loginID' class='loginID' required/>
+    </label>
+    <br><br>
+    <label for='password'>Password:
+        <input type='text' name='password' id='password' class='password' required/>
+    </label>
+    <br><br>
+    <input type='submit' value="Submit">
+</form>
+
+<a href='users/signin'>Sign-In</a>
