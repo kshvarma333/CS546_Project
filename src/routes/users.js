@@ -90,10 +90,10 @@ console.log("in reg event")
 router.post("/unregevent", async(req, res) => {
   let eventId = req.body.eventId.toString();
   //const userId = req.session._id;
-  const userId = "5de3eb58e025f58f90e311f2";
+  const userId = req.session.ID;
   try{
     const userEventInfo = await users.unsetUserFollowEvent(userId, eventId);
-    res.status(200).json(userEventInfo);
+    res.redirect('/events/single/'+ eventId)
   }catch(e){
     console.log(e);
     res.status(200);
@@ -123,18 +123,27 @@ router.post('/', async(req, res) => {
 
   if(!userInfo.loginID || !userInfo.password)
   throw "Please enter Username and Password"
+  const user = await users.getUserByUsername(userInfo.loginID);
+  if (user){
+    bcrypt.compare(userInfo.password,user.hashedPassword, function (err, result) {
+      if (result == true) {
+        req.session.name = "AuthCookie";
+        req.session.loginID = userInfo.loginID;
+        req.session.ID = user._id;
+        console.log(req.session);
+        res.render('users/multiple', {
+          firstName: user.fname
+        });
+      } else {
+        response.redirect('/?login=fail');
+  }
 
-  const authUser = await users.getUserAuthentication(userInfo.loginID, userInfo.password);
-  if(authUser){
-    const user = await users.getUserByUsername(userInfo.loginID);
-    // let user = await users.getUser
-    req.session.name = "AuthCookie";
-    req.session.loginID = userInfo.loginID;
-    req.session.ID = user._id;
-    console.log(req.session);
-    res.render('users/multiple', {
-      firstName: authUser.fname
+
     });
+
+  }
+  else{
+    response.redirect('/?login=fail');
   }
 //   else{
 //   try{

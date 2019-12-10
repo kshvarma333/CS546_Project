@@ -5,19 +5,7 @@ const {ObjectId}=require('mongodb');
 const bcrypt = require('bcryptjs');
 
 const exportedMethods = {
-  async getUserAuthentication(username, password) {
-    const userCollection = await users();
-    let user = await userCollection.findOne({loginID: username});
-    console.log(user);
-    if(user){
-      let hashedPassword = bcrypt.compare(password, user.hashedPassword);
-      if(hashedPassword){
-        return user;
-      }
-    }
-    return user;
 
-  },
   async getAllUsers() {
     const usersCollection = await users();
     const allusers = await usersCollection.find({}).toArray();
@@ -42,6 +30,22 @@ const exportedMethods = {
     user.regdEvents=allEvents;
     console.log(user);
     return user;
+  },
+  async checkReg(id,eid) {
+    const usersCollection = await users();
+    const user = await usersCollection.findOne({_id: ObjectId(id)});
+    if(user.regdEvents.length != undefined){
+    for (const event of user.regdEvents){
+      console.log(event._id);
+      console.log(eid);
+      console.log(ObjectId(eid));
+      if (event._id==eid)
+      {
+        return true;
+      }
+    }
+  }
+    return false;
   },
   async getUserByUsername(uname) {
     const userCollection = await users();
@@ -102,7 +106,7 @@ const exportedMethods = {
   },
   async unsetUserFollowEvent(uid,eid) {
     const usersCollection = await users();
-    const updatedInfo = await usersCollection.updateOne({_id: ObjectId(uid)}, {$pull: {regdEvents: ObjectId(eid) }});
+    const updatedInfo = await usersCollection.updateOne({_id: ObjectId(uid)}, {$pull: {regdEvents: {'_id':ObjectId(eid)} }});
     return updatedInfo;
   },
 };
