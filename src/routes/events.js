@@ -31,8 +31,15 @@ router.get('/single/:id', async (req, res) => {
 let eventId = req.params.id;
 // let user = await users.getUser("5de3eb58e025f58f90e311f2");
 let getEv = await events.getEvent(eventId);
-console.log(req.session.ID);
-let checkreg = await users.checkReg(req.session.ID,eventId);
+var checkreg;
+
+if (!req.session.ID){
+checkreg = false;
+}
+else
+{
+checkreg = await users.checkReg(req.session.ID,eventId);
+}
 console.log(checkreg);
 console.log(getEv);
 if (!getEv){
