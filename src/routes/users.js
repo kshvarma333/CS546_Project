@@ -70,7 +70,11 @@ router.delete("/:id", async(req, res) => {
 
 
 router.post("/regevent", async(req, res) =>{
-console.log("in reg event")
+  if (!req.session.authed){
+    res.redirect('/users/signin');
+    
+  }
+
   let eventId = req.body.eventId;
   // eventId = eventId.toString();
   const userId = req.session.ID;
@@ -103,7 +107,8 @@ router.post("/unregevent", async(req, res) => {
 
 router.get("/logout", async(req,res) => {
   req.session.destroy();
-  res.render()
+  response.redirect('/');
+  
 });
 
 router.get("/", async(req, res) => {
@@ -116,6 +121,10 @@ router.get("/", async(req, res) => {
 
 
 router.post('/', async(req, res) => {
+  if (req.session.authed){
+    res.redirect('/');
+    return;
+  }
 
   userInfo = req.body;
   if(!userInfo)
@@ -129,6 +138,7 @@ router.post('/', async(req, res) => {
       if (result == true) {
         req.session.name = "AuthCookie";
         req.session.loginID = userInfo.loginID;
+        req.session.authed = true;
         req.session.ID = user._id;
         console.log(req.session);
         res.render('users/multiple', {
@@ -164,10 +174,16 @@ router.post('/', async(req, res) => {
 });
 
 router.post('/newuser', async(req,res) => {
+  if (req.session.authed){
+    res.redirect('/');
+    return;
+    
+  }
   userInfo = req.body;
   try{
   const newUser = await users.createUser(userInfo);
   req.session.ID = newUser._id;
+  req.session.authed = true;
   req.session.name = "AuthCookie";
   res.render('users/multiple', {
     firstName: newUser.fname
@@ -178,10 +194,20 @@ router.post('/newuser', async(req,res) => {
 });
 
 router.get('/signup', async(req,res) => {
+  if (req.session.authed){
+    res.redirect('/');
+    return;
+    
+  }
     res.render('users/signup');
 });
 
 router.get('/signin', async(req,res) => {
+  if (req.session.authed){
+    res.redirect('/');
+    return;
+    
+  }
   res.render('users/signin');
 });
 
