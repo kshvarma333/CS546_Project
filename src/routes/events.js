@@ -21,9 +21,12 @@ router.get('/update/:id', async (req,res) => {
   });
 
 router.get('/create', async (req,res) => {
-
+  if (req.session.accesslevel <= 1){
+    res.redirect('/');
+    return;
+  }
   let allEvents = await events.getAllEvents();
-  res.render('/create');
+  res.render('events/create');
   
   });
 
@@ -58,6 +61,10 @@ router.get('/topfive', async(req, res) => {
 })
 
 router.post('/', async (req,res) => {
+  if (req.session.accesslevel <= 1){
+    res.redirect('/');
+    return;
+  }
   let eventInfo = req.body;
   if(!eventInfo)
   throw "Error"

@@ -58,7 +58,7 @@ const exportedMethods = {
     let newUser = {
       loginID: userInfo.loginID,
       hashedPassword: hPassword,
-      accessLevel: "user",
+      accessLevel: 1,
       fname: userInfo.firstName,
       lname: userInfo.lastName,
       location: userInfo.location,

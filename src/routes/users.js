@@ -139,6 +139,8 @@ router.post('/', async(req, res) => {
         req.session.name = "AuthCookie";
         req.session.loginID = userInfo.loginID;
         req.session.authed = true;
+        console.log(user.accesslevel);
+        req.session.accesslevel = user.accessLevel;
         req.session.ID = user._id;
         console.log(req.session);
         res.render('users/multiple', {
@@ -184,6 +186,7 @@ router.post('/newuser', async(req,res) => {
   const newUser = await users.createUser(userInfo);
   req.session.ID = newUser._id;
   req.session.authed = true;
+  req.session.accesslevel=1;
   req.session.name = "AuthCookie";
   res.render('users/multiple', {
     firstName: newUser.fname
