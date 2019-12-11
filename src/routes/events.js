@@ -7,7 +7,13 @@ const users = data.users;
 router.get('/', async (req,res) => {
 
 let allEvents = await events.getAllEvents();
-res.render('events/multiple',{events: allEvents});
+let cancreate=false;
+if (req.session.accesslevel >=2 )
+{
+  cancreate=true;
+}
+console.log(cancreate);
+res.render('events/multiple',{events: allEvents, cancreate: cancreate});
 
 });
 
