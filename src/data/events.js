@@ -11,30 +11,34 @@ const exportedMethods = {
   },
 
   async getEvent(id) {
+    if(typeof(id) !== "string" )
+    id=id.toString();
 
     const eventsCollection = await events();
     const gevent = await eventsCollection.findOne({_id: ObjectId(id)});
 
-
+    if(!gevent)
+    throw "Event Of ID "+id+" Not Found"
 
     return gevent;
   },
 
-  async createEvent(eventInfo) {
+  async createEvent(eventInfo,createdby) {
 
     const eventCollection = await events();
+    console.log(eventInfo.eventName);
     let newEvent={
-      name: eventInfo.name,
-      description: eventInfo.description,
-      createdBy: eventInfo.createdBy,
+      name: eventInfo.eventName,
+      description: eventInfo.eventDesc,
+      createdBy: createdby,
       location: eventInfo.location,
       tourGuide: eventInfo.tourGuide,
       price: eventInfo.price,
       maxUsers: eventInfo.maxUsers,
+      regdUsersCount: eventInfo.regdUsersCount,
       regdUsers: {},
       eventDate: eventInfo.eventDate,
-      eventStatus: "Open",
-      rating: 0
+      eventStatus: eventInfo.eventStatus
     }
     const insertEvent = await eventCollection.insertOne(newEvent);
     if(insertEvent.insertedCount == 0)
