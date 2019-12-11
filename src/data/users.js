@@ -31,6 +31,32 @@ const exportedMethods = {
     console.log(user);
     return user;
   },
+
+  async getUserUpcomming(id) {
+    const usersCollection = await users();
+    const user = await usersCollection.findOne({_id: ObjectId(id)});
+    let allEvents=[]  
+    console.log(user.regdEvents.length);
+    if(user.regdEvents.length != undefined){
+    for (const event of user.regdEvents){
+      try{
+        const info = await events.getEvent(event._id); 
+      var datacheck = new Date().getTime() + (30 * 24 * 60 * 60 * 1000)
+      console.log(datacheck);
+      console.log(info.eventDate);
+
+      if (datacheck > info.eventDate){
+      allEvents.push(info);
+      }
+      }
+      catch(e){
+        console.log(e);
+      }
+    }
+  }
+    return allEvents;
+  },  
+
   async checkReg(id,eid) {
     const usersCollection = await users();
     const user = await usersCollection.findOne({_id: ObjectId(id)});

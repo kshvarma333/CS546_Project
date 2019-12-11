@@ -17,8 +17,7 @@ const {ObjectId} = require('mongodb');
 //     next();
 //   }
 // });
-
-router.get("/userpage", async(req, res) => {
+router.get('/userpage', async (req,res) => {
   const userInfo = await users.getUser("5de3eb58e025f58f90e311f2");
   console.log(userInfo);
   res.render('/single',{events: userInfo.regdEvents, user: userInfo});
@@ -112,11 +111,18 @@ router.get("/logout", async(req,res) => {
 });
 
 router.get("/", async(req, res) => {
-  // const allUsers = await users.getALLUsers();
-  // res.status(200).json(allUsers);
-  // res.render()
-  res.render('users/multiple');
-});
+
+  const userInfo = await users.getUserUpcomming(req.session.ID);
+  let cancreate=false;
+  if (req.session.accesslevel >=2 )
+  {
+    cancreate=true;
+  }
+  console.log(cancreate);
+  
+  res.render('users/multiple',{events: userInfo, cancreate: cancreate});
+  
+  });
 
 
 
@@ -143,9 +149,7 @@ router.post('/', async(req, res) => {
         req.session.accesslevel = user.accessLevel;
         req.session.ID = user._id;
         console.log(req.session);
-        res.render('users/multiple', {
-          firstName: user.fname
-        });
+        res.redirect('/users');
       } else {
         response.redirect('/?login=fail');
   }

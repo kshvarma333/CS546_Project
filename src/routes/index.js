@@ -15,6 +15,7 @@ const constructorMethod = app => {
     let allEvents = await events.getTopEvents();
     res.render('standard/home',{events: allEvents});
     
+    
     });
   app.use("*", (req, res) => {
     res.sendStatus(404);
