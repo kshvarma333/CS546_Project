@@ -4,9 +4,10 @@
 <h3>Event Name: {{event.name}}</h3><br>
  Location: {{event.location}}<br>
 
+{{#if owner }}
 <form method='post'><input type="text" name='type' value="delete" hidden><input type="text" name='id' value={{event._id}} hidden> <input type="submit" value="Delete"></form>
 <a href='/events/update/{{event._id}}'><input type="submit" value="Update Record"></a>
-
+{{/if}}
 {{#if registered }}
 <form method='post' action="/users/unregevent"><input type="text" name='eventId' value={{event._id}} hidden> <input type="submit" value="Unregister"></form>
 
