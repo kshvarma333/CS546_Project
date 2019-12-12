@@ -15,6 +15,10 @@ app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
 
 
+app.use(function(req, res, next) {  
+  app.locals.expreq = req;
+  next();
+})
 
 app.use(session({
   secret: Math.random().toString(36).substring(7),
