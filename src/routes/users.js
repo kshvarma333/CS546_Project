@@ -106,7 +106,7 @@ router.post("/unregevent", async(req, res) => {
 
 router.get("/logout", async(req,res) => {
   req.session.destroy();
-  response.redirect('/');
+  res.redirect('/');
   
 });
 
@@ -149,7 +149,7 @@ router.post('/', async(req, res) => {
         req.session.accesslevel = user.accessLevel;
         req.session.ID = user._id;
         console.log(req.session);
-        res.redirect('/users');
+        res.redirect('/');
       } else {
         response.redirect('/?login=fail');
   }

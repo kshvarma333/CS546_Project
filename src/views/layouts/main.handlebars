@@ -20,8 +20,13 @@
 <div class="right"> 
 <h2>Menu</h2>
 <ul>
-
-<li><a href="/events">Events</a></li> <li><a href='/users/signin'> Sign-In</a></li><li><a href='/'> Home</a> </li>
+<li><a href='/'> Home</a> </li>
+<li><a href="/events">Events</a></li> 
+{{#if expreq.session.authed}}
+<li><a href='/users/logout'> Sign-out</a></li>
+{{else}}
+<li><a href='/users/signin'> Sign-In</a></li>
+{{/if}}
 
 </ul>
 
