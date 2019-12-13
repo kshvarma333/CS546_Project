@@ -1,13 +1,40 @@
+<section id="newsletter">
+        <div class="container">
+            <form>
+                <h2>Explore the World!!!</h2>
+                <label for="Subscription">Subscribe to our events: <input type="email" placeholder="Enter your email..."></label>
+                <button type="submit" class="button_1">Subscribe</button> 
+            </form>
+        </div>
+</section>
 
-<h2>All Events</h2></br>
-{{#if cancreate }}
-<a href="/events/create">Create New Event</a>
-{{/if}}<br>
-<table border='1'><thead><tr><td>Event Name</td><td>Event Type</td><td>Location</td><td>Option</td></tr></thead><tbody>
+<section id="main">
+    <div class="container">
+        <article id="main-col">
+            <h2 class="page-title">Upcoming events</h2>
+            {{#if cancreate }}
+            <a href="/events/create">Create New Event</a>
+            {{/if}}<br>
+            <table border='1'>
+                <thead><tr><td>Event Name</td><td>Event Type</td><td>Location</td><td>Option</td></tr>
+                </thead>
+                <tbody>
+                {{#each events}}
+                <tr><td>{{name}}</td><td>{{location}}</td><td>{{location}}</td><td><a href="/events/single/{{_id}}">View</a></td></tr>
+                {{/each}}
+                </tbody>
+            </table>
+        </article>
+        <aside id="sidebar">
+            <div class="dark">
+                <p>New paragraph about the event</p>
+            </div>
+        </aside>
+    </div>
+</section>
 
-{{#each events}}
-<tr><td>{{name}}</td><td>{{location}}</td><td>{{location}}</td><td><a href="/events/single/{{_id}}">View</a></td></tr>
-{{/each}}
+<footer>
+    <p>Trek The World, Copyright &copy; Fall 2019</p>
+</footer>
 
-</tbody></table>
 <link href="../public/site.css" rel="stylesheet">

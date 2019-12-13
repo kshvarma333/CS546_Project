@@ -1,94 +1,182 @@
-* {
-  padding: 0;
-  margin: 0;
-} 
-
-
-body {
-background: #fff url(images/bg.jpg) repeat-x;
-font-family: Arial, Helvetica, sans-serif;
-font-size: 12px;
-line-height: 18px;
-color: #333333;;
+body{
+    font: 15px/1.5 Arial, Helvetica, sans-serif;
+    padding: 0;
+    margin: 0;
+    background-color: lightgrey;
 }
 
-img { border: none; }
-a { color: #0A6380; text-decoration: none; }
-a:hover { text-decoration: underline; color : #000; }
-
-#wrap {
-margin: 0 auto;
-width: 800px;
+/*Global*/
+.container{
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
 }
 
-#header { 
-height: 150px;
-text-align: center;
+ul{
+    margin: 0;
+    padding: 0;
 }
-#header h1 {
-font-size: 30px;
-font-weight: 100;
-letter-spacing: -3px;
-padding: 40px 0 5px 0;
+
+.button_1{
+ height: 38px;
+ background: black;
+ border: none;
+ padding-left: 20px;
+ padding-right: 20px;
+ color: #ffffff;
 }
-#header h1 a {
-color: #0A6380;
+
+a{
 text-decoration: none;
-}
-#header h1 a:hover {
-color: #222;
-text-decoration: none;
-}
-#header h2 {
-color: #3692AF;
-font-size: 19px;
-font-weight: 100;
-padding: 0 0 0 0;
-letter-spacing: -1px;
-line-height: 12px;
-display: inline-block;
+color: black;
+text-transform: uppercase;
+font-size: 18px;
 }
 
-#content {
-padding: 10px 0;
+.dark{
+    padding: 15px;
+    background: #354248;
+    color: white;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
-.left {
-width: 568px;
-float: left;
-text-align: justify;
-}
-.left h2 {
-color: #FF4800;
-font-size: 22px;
-letter-spacing: -1px;
-font-weight: 100;
-padding : 15px 0 15px 0;
+/*Header*/
+header{
+    background: grey;
+    color: white;
+    padding-top: 30px;
+    min-height: 70px;
+    border-bottom: 3px solid;
 }
 
-.right {
-width: 160px;
-float: right;
-padding: 10px;
-border-left: 1px solid #bbb;
-font-size: 12px;
+img#logo{
+    size: 271px 44px;
 }
-.right ul {
-list-style-type: none;
-padding: 5px 10px 10px 10px;
-}
-.right h2 {
-height: 30px;
-font-size: 12px;
-color: #666;
-line-height: 30px;
-}
-.right a { text-decoration: none }
 
-#footer {
-border-top: 1px solid #bbb;
-text-align: center;
-color: #333;
-font-size: 11px;
-padding: 0 0 10px 0;
+header a{
+    text-decoration: none;
+    color: #ffffff;
+    text-transform: uppercase;
+    font-size: 25px;
+}
+
+header li{
+    float: left;
+    display: block;
+    padding: 0 20px 0 20px;
+}
+
+header#branding{
+    float: left;
+}
+
+header#branding h1{
+    margin:0;
+}
+
+header nav{
+    float: right;
+    margin-top: 10px
+}
+
+header .highlight, header .current a{
+    color: darkorange;
+    font-weight: bold;
+}
+
+header a:hover{
+    color: black;
+    font-weight: bold;
+}
+
+/* Newsletter */
+#newsletter{
+    padding: 15px;
+    color: #ffffff;
+    background: darkorange;
+}
+
+#newsletter form{
+    margin-top: 0px;
+}
+
+#newsletter input[type="email"]{
+    padding: 4px;
+    height: 25px;
+    width: 250px;
+}
+
+/* Boxes */
+#boxes{
+    margin-top: 20px;
+}
+
+#boxes .box{
+    float: left;
+    width: 30%;
+    padding: 10px;
+    text-align: justify;
+}
+
+#boxes .box img{
+    width: 300px;
+    height: 300px;
+}
+
+/*Sidebar*/
+aside#sidebar{
+    float: right;
+    width: 30%;
+    margin-top: 10px;
+}
+
+aside#sidebar .message input, aside#sidebar .quote textarea{
+    width: 90%;
+    padding: 5px;
+}
+
+/*main-col*/
+article#main-col{
+    float: left;
+    width: 65%;
+}
+
+
+footer{
+    padding: 20px;
+    margin: 20px;
+    color: #ffffff;
+    background-color: darkorange;
+    text-align: center;
+}
+
+/*Media Queries*/
+@media(max-width: 768px){
+    header#branding,
+    header nav,
+    header nav li,
+    #newsletter h2,
+    #newsletter form,
+    #boxes .box,
+    #article#main-col,
+    aside#sidebar{
+        float: none;
+        text-align: center;
+        width: 10%;
+    }
+
+    header{
+        padding-bottom: 20px;
+    }
+
+    #newsletter button, .quote button{
+        display: block;
+        width: 100%;
+    }
+     
+    #newsletter form input[type="email"], .message input, .message textaarea{
+        width: 100%;
+        margin-bottom: 5px;
+    }
 }

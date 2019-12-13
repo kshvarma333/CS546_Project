@@ -54,6 +54,7 @@ router.post('/users/update', async (req,res) => {
   res.render('admin/user',{events: userInfo.regdEvents, user: userInfo});
   // res.render('userInfo')
 });
+
 router.post('/users/delete', async (req,res) => {
   let id = req.params.id;
   id = id.toString();
@@ -61,7 +62,5 @@ router.post('/users/delete', async (req,res) => {
   res.redirect('admin/users')
   // res.render('userInfo')
 });
-
-
 
 module.exports = router;

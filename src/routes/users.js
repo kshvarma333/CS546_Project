@@ -6,8 +6,6 @@ const users = data.users;
 const bcrypt = require("bcryptjs");
 const {ObjectId} = require('mongodb');
 
-
-
 // router.use("/", function(req,res,next) {
 //   if(req.session.name !== "AuthCookie"){
 //     // res.status(403).render(error);
@@ -22,8 +20,7 @@ router.get('/userpage', async (req,res) => {
   console.log(userInfo);
   res.render('/single',{events: userInfo.regdEvents, user: userInfo});
   // res.render('userInfo')
-})
-
+});
 
 router.put('/:id', async(req, res) => {
   userId = req.params.id;
@@ -40,11 +37,11 @@ router.put('/:id', async(req, res) => {
 
   res.status(200).json(update);
   // res.render()
-}catch(e){
-  // res.render()
-  res.status(500);
-  console.log(e);
-}
+  }catch(e){
+    // res.render()
+    res.status(500);
+    console.log(e);
+  }
 });
 
 router.delete("/:id", async(req, res) => {
@@ -60,18 +57,17 @@ router.delete("/:id", async(req, res) => {
   const deletedUser = await users.deleteUser(userId);
   res.status(200).json(deletedUser);
   // res.render(User with username delUser.loginID has been removed)
-}catch(e){
-  console.log(e);
-  res.status(500);
-  // res.render()
-}
+  }catch(e){
+    console.log(e);
+    res.status(500);
+    // res.render()
+  }
 });
 
 
 router.post("/regevent", async(req, res) =>{
   if (!req.session.authed){
-    res.redirect('/users/signin');
-    
+  res.redirect('/users/signin');
   }
 
   let eventId = req.body.eventId;
@@ -82,54 +78,47 @@ router.post("/regevent", async(req, res) =>{
   const userEventInfo = await users.setUserFollowEvent(ObjectId(userId), eventId);
   res.redirect('/events/single/'+ eventId)
   // res.render()
-}catch(e){
+  }catch(e){
   console.log(e);
   res.status(500);
   // res.render()
-}
+  }
 });
-
 
 router.post("/unregevent", async(req, res) => {
   let eventId = req.body.eventId.toString();
   //const userId = req.session._id;
   const userId = req.session.ID;
   try{
-    const userEventInfo = await users.unsetUserFollowEvent(userId, eventId);
-    res.redirect('/events/single/'+ eventId)
+  const userEventInfo = await users.unsetUserFollowEvent(userId, eventId);
+  res.redirect('/events/single/'+ eventId)
   }catch(e){
-    console.log(e);
-    res.status(200);
-    // res.render()
+  console.log(e);
+  res.status(200);
+  // res.render()
   }
 });
 
 router.get("/logout", async(req,res) => {
   req.session.destroy();
   res.redirect('/');
-  
 });
 
 router.get("/", async(req, res) => {
-
   const userInfo = await users.getUserUpcomming(req.session.ID);
   let cancreate=false;
   if (req.session.accesslevel >=2 )
   {
-    cancreate=true;
+  cancreate=true;
   }
   console.log(cancreate);
-  
   res.render('users/multiple',{events: userInfo, cancreate: cancreate});
-  
-  });
-
-
+});
 
 router.post('/', async(req, res) => {
   if (req.session.authed){
-    res.redirect('/');
-    return;
+  res.redirect('/');
+  return;
   }
 
   userInfo = req.body;
@@ -140,50 +129,46 @@ router.post('/', async(req, res) => {
   throw "Please enter Username and Password"
   const user = await users.getUserByUsername(userInfo.loginID);
   if (user){
-    bcrypt.compare(userInfo.password,user.hashedPassword, function (err, result) {
-      if (result == true) {
-        req.session.name = "AuthCookie";
-        req.session.loginID = userInfo.loginID;
-        req.session.authed = true;
-        console.log(user.accesslevel);
-        req.session.accesslevel = user.accessLevel;
-        req.session.ID = user._id;
-        console.log(req.session);
-        res.redirect('/');
-      } else {
-        response.redirect('/?login=fail');
+  bcrypt.compare(userInfo.password,user.hashedPassword, function (err, result) {
+  if (result == true) {
+  req.session.name = "AuthCookie";
+  req.session.loginID = userInfo.loginID;
+  req.session.authed = true;
+  console.log(user.accesslevel);
+  req.session.accesslevel = user.accessLevel;
+  req.session.ID = user._id;
+  console.log(req.session);
+  res.redirect('/');
+  } else {
+  response.redirect('/?login=fail');
   }
-
-
-    });
-
+  });
   }
   else{
-    response.redirect('/?login=fail');
+  response.redirect('/?login=fail');
   }
-//   else{
-//   try{
-//   const newUser = await users.createUser(userInfo);
+  //   else{
+  //   try{
+  //   const newUser = await users.createUser(userInfo);
 
-//   req.session.ID = newUser._id;
-//   req.session.name = "AuthCookie";
-//   // res.status(200).json(newUser);
-//   res.render('users/multiple',{
-//     firstName: newUser.fname
-//   });
-// }catch(e){
-//   console.log(e);
-//   res.status(500);
-//   // res.render()
-//   }
-// }
+  //   req.session.ID = newUser._id;
+  //   req.session.name = "AuthCookie";
+  //   // res.status(200).json(newUser);
+  //   res.render('users/multiple',{
+  //     firstName: newUser.fname
+  //   });
+  // }catch(e){
+  //   console.log(e);
+  //   res.status(500);
+  //   // res.render()
+  //   }
+  // }
 });
 
 router.post('/newuser', async(req,res) => {
   if (req.session.authed){
-    res.redirect('/');
-    return;
-    
+  res.redirect('/');
+  return;
   }
   userInfo = req.body;
   try{
@@ -193,27 +178,25 @@ router.post('/newuser', async(req,res) => {
   req.session.accesslevel=1;
   req.session.name = "AuthCookie";
   res.render('users/multiple', {
-    firstName: newUser.fname
+  firstName: newUser.fname
   });
-}catch(e){
+  }catch(e){
   console.log(e);
-}
+  }
 });
 
 router.get('/signup', async(req,res) => {
   if (req.session.authed){
-    res.redirect('/');
-    return;
-    
+  res.redirect('/');
+  return;
   }
-    res.render('users/signup');
+  res.render('users/signup');
 });
 
 router.get('/signin', async(req,res) => {
   if (req.session.authed){
-    res.redirect('/');
-    return;
-    
+  res.redirect('/');
+  return;
   }
   res.render('users/signin');
 });
