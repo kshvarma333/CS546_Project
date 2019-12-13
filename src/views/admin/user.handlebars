@@ -1,0 +1,25 @@
+<h1> Update </h1>
+
+<form method='post' action='/admin/users/update'> 
+<input type='text' name='id' id='id' value='{{user._id}}' hidden/>
+    <label for='firstName'>First Name:
+        <input type='text' name='firstName' id='firstName' class='firstName' value='{{user.fname}}' required/>
+    </label>
+    <br><br>
+    <label for='lastName'> Last Name:
+        <input type='text' name='lastName' id='lastName' class='lastName' value='{{user.lname}}' required/>
+    </label>
+    <br><br>
+    <label for='email'>Email:
+        <input type='text' name='email' id='email' class='email' value='{{user.email}}' required/>
+    </label>
+    <br><br>
+    <label for='location'>Location:
+        <input type='text' name='location' id='location' class='location' value='{{user.location}}' required/>
+    </label>
+
+    <br><br>
+    <input type='submit' value="Update">
+</form>
+
+<link href="../../../public/site.css" rel="stylesheet">

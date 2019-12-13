@@ -1,5 +1,6 @@
 const eventsRoutes = require("./events");
 const userRoutes  = require("./users");
+const adminRoutes  = require("./admin");
 const data = require('../data');
 const events = data.events;
 const users = data.users;
@@ -9,6 +10,7 @@ auth = require('../data/google');
 const constructorMethod = app => {
 app.use("/events", eventsRoutes);
 app.use("/users", userRoutes);
+app.use("/admin", adminRoutes);
 auth(passport);
 app.use(passport.initialize());
 app.get('/auth/google', passport.authenticate('google', {scope: ['openid', 'email', 'profile']})

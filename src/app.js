@@ -17,6 +17,14 @@ app.set('view engine', 'handlebars');
 
 app.use(function(req, res, next) {  
   app.locals.expreq = req;
+  try{
+    if(req.session.accesslevel > 2){
+      console.log('l');
+    }
+  }
+  catch{
+    console.log('issue');
+  }
   next();
 })
 
