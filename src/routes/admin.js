@@ -8,18 +8,17 @@ const {ObjectId} = require('mongodb');
 
 
 
-// router.use("/", function(req,res,next) {
-//   if(req.session.name !== "AuthCookie"){
-//     // res.status(403).render(error);
-//     res.render('users/signin')
-//   }
-//   else{
-//     next();
-//   }
-// });
-router.get('/index', async (req,res) => {
-  const userInfo = await users.getAllUsers();
-  res.render('admin/users',{events: userInfo.regdEvents, user: userInfo});
+router.use("/", function(req,res,next) {
+  if(req.session.authed && req.session.accesslevel > 2){
+    next();
+    
+  }
+  else{
+    res.sendStatus(403)
+  }
+});
+router.get('/', async (req,res) => {
+  res.render('admin/index');
   // res.render('userInfo')
 });
 router.get('/users', async (req,res) => {
@@ -31,7 +30,7 @@ router.get('/users/:id', async (req,res) => {
   let id = req.params.id;
   id = id.toString();
   const userInfo = await users.getUser(id);
-  res.render('admin/user',{users: userInfo});
+  res.render('admin/user',{user: userInfo});
   // res.render('userInfo')
 });
 
@@ -47,11 +46,11 @@ router.get('/events', async (req,res) => {
   
 });
 router.post('/users/update', async (req,res) => {
-  let id = req.params.id;
+  let id = req.body.id;
   id = id.toString();
   let updateInfo = req.body;
   const userInfo = await users.updateUser(id,updateInfo);
-  res.render('admin/user',{events: userInfo.regdEvents, user: userInfo});
+  res.redirect('/admin/users/'+id)
   // res.render('userInfo')
 });
 router.post('/users/delete', async (req,res) => {
