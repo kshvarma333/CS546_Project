@@ -78,11 +78,17 @@ const exportedMethods = {
     const getUser = await userCollection.findOne({ loginID: uname});
     return getUser;
   },
+  async getUserByEmail(useremail) {
+    const userCollection = await users();
+    const getUser = await userCollection.findOne({ email: useremail});
+    return getUser;
+  },
   async createUser(userInfo) {
     const userCollection = await users();
     let hPassword = bcrypt.hashSync(userInfo.password, 4);
     let newUser = {
       loginID: userInfo.loginID,
+      email: userInfo.email,
       hashedPassword: hPassword,
       accessLevel: 1,
       fname: userInfo.firstName,
