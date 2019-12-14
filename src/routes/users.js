@@ -18,9 +18,9 @@ const {ObjectId} = require('mongodb');
 //   }
 // });
 router.get('/userpage', async (req,res) => {
-  const userInfo = await users.getUser("5de3eb58e025f58f90e311f2");
+  const userInfo = await users.getUser(req.session.ID);
   console.log(userInfo);
-  res.render('/single',{events: userInfo.regdEvents, user: userInfo});
+  res.render('users/single',{events: userInfo.regdEvents, user: userInfo});
   // res.render('userInfo')
 })
 
@@ -151,7 +151,7 @@ router.post('/', async(req, res) => {
         console.log(req.session);
         res.redirect('/');
       } else {
-        response.redirect('/?login=fail');
+        res.redirect('/users/signin/?login=fail');
   }
 
 
@@ -159,7 +159,7 @@ router.post('/', async(req, res) => {
 
   }
   else{
-    response.redirect('/?login=fail');
+    res.redirect('/users/signin/?login=fail');
   }
 //   else{
 //   try{
@@ -197,6 +197,7 @@ router.post('/newuser', async(req,res) => {
   });
 }catch(e){
   console.log(e);
+  res.send(e);
 }
 });
 

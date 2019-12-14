@@ -10,6 +10,7 @@ const main = async () => {
   //admin login
   const adminDet = await users.createUser(
     'admin',
+    'none',
     'pass',
     2,
     'Vaishoo',
@@ -21,6 +22,7 @@ const main = async () => {
   //trek guide login
   const userDet = await users.createUser(
     'tcardwel',
+    'trevorc212@gmail.com',
     'trek@',
     1,
     'Trevor',

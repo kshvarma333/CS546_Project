@@ -50,7 +50,7 @@ router.post('/users/update', async (req,res) => {
   id = id.toString();
   let updateInfo = req.body;
   const userInfo = await users.updateUser(id,updateInfo);
-  res.redirect('/admin/users/'+id)
+  res.redirect('/admin/users/'+id+'?updated')
   // res.render('userInfo')
 });
 router.post('/users/delete', async (req,res) => {

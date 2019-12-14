@@ -19,7 +19,7 @@ const exportedMethods = {
     if(user.regdEvents.length != undefined){
     for (const event of user.regdEvents){
       try{
-        const info = await events.getEvent(event); 
+        const info = await events.getEvent(event._id); 
       allEvents.push(info);
       }
       catch(e){
@@ -80,15 +80,15 @@ const exportedMethods = {
   },
   async getUserByEmail(useremail) {
     const userCollection = await users();
-    const getUser = await userCollection.findOne({ email: useremail});
+    const getUser = await userCollection.findOne({ email: useremail.toLowerCase()});
     return getUser;
   },
   async createUser(userInfo) {
     const userCollection = await users();
     let hPassword = bcrypt.hashSync(userInfo.password, 4);
     let newUser = {
-      loginID: userInfo.loginID,
-      email: userInfo.email,
+      loginID: userInfo.loginID.toLowerCase(),
+      email: userInfo.email.toLowerCase(),
       hashedPassword: hPassword,
       accessLevel: 1,
       fname: userInfo.firstName,
@@ -97,6 +97,9 @@ const exportedMethods = {
       regdEvents:[]
     };
     
+    if(this.getUserByUsername(userInfo.loginID.toLowerCase())|| this.getUserByEmail(userInfo.email.toLowerCase())){
+      throw 'Users Exists';
+    }
     const insertedUser = await userCollection.insertOne(newUser);
     if(insertedUser.insertedCount == 0)
         throw "Could not add user"
