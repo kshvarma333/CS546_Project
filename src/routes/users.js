@@ -99,7 +99,7 @@ router.post("/unregevent", async(req, res) => {
     res.redirect('/events/single/'+ eventId)
   }catch(e){
     console.log(e);
-    res.status(200);
+    res.status(500);
     // res.render()
   }
 });
@@ -111,6 +111,10 @@ router.get("/logout", async(req,res) => {
 });
 
 router.get("/", async(req, res) => {
+  if(!req.session.ID){
+    res.redirect('/users/signin');
+    return;
+  }
 
   const userInfo = await users.getUserUpcomming(req.session.ID);
   let cancreate=false;
