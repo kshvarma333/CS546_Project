@@ -151,7 +151,7 @@ router.post('/', async(req, res) => {
         console.log(req.session);
         res.redirect('/');
       } else {
-        response.redirect('/?login=fail');
+        res.redirect('/users/signin/?login=fail');
   }
 
 
@@ -159,7 +159,7 @@ router.post('/', async(req, res) => {
 
   }
   else{
-    response.redirect('/?login=fail');
+    res.redirect('/users/signin/?login=fail');
   }
 //   else{
 //   try{
