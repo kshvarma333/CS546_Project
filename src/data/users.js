@@ -80,7 +80,7 @@ const exportedMethods = {
   },
   async getUserByEmail(useremail) {
     const userCollection = await users();
-    const getUser = await userCollection.findOne({ email: useremail});
+    const getUser = await userCollection.findOne({ email: useremail.toLowerCase()});
     return getUser;
   },
   async createUser(userInfo) {
@@ -88,7 +88,7 @@ const exportedMethods = {
     let hPassword = bcrypt.hashSync(userInfo.password, 4);
     let newUser = {
       loginID: userInfo.loginID.toLowerCase(),
-      email: userInfo.email,
+      email: userInfo.email.toLowerCase(),
       hashedPassword: hPassword,
       accessLevel: 1,
       fname: userInfo.firstName,
