@@ -1,19 +1,18 @@
-<h1>Sign In</h1>
-
 <form method='post' action='/users'>
-    <label for='loginID'>Login ID
-        <input type='text' name='loginID' id='loginID' class='loginID' />
+    <label for='loginID'>Login ID*
+    <input type='text' name='loginID' id='loginID' class='loginID' required />
     </label><br>
-    <label for='password'> Password
-        <input type='password' name='password' id='password' class='password' />
+    <label for='password'> Password*
+    <input type='password' name='password' id='password' class='password' required />
     </label>
-    
-  <br>  <input type='submit' value='Submit' />
-
+    <br>  
+    <button class="button_1" type="submit" value="submit" style="width: auto;">Sign In</button>
+    <br><br>
+    <button class="button_1" type="button" value="sign up" onclick="document.getElementById('id01').style.display='block'" style="width:auto;">
+        <a href='signup'>Sign Up</a>
+    </button>
 </form>
-
-
-<a href='signup'>Sign-Up</a>
 <br>
-<a href='/auth/google'>Sign-in Via Google (Must be registered with email first)</a>
+<br>
+<br>
 <link href="../../public/site.css" rel="stylesheet">

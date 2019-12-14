@@ -1,20 +1,44 @@
 <section>
 <h2>Welcome Trekker</h2></br>
 <div id='eventinfo'>
-<h3>Event Name: {{event.name}}</h3><br>
- Location: {{event.location}}<br>
+    <h3>Event Name: {{event.description}}</h3>
+    <h4>Event Type: {{event.name}}</h4>
+    <h4>Location: {{event.location}}</h4>
+    <h4>Tour Guide: {{event.tourGuide}}</h4>
+    <h4>Price: {{event.price}}</h4>
+    <h4>Event Date: {{event.eventDate}}</h4>
+    <h4>Registered Users:</h4>
+    <table border='1'>
+    <thead><tr><td>First Name</td><td>Last Name</td></tr>
+    </thead>
+    <tbody>
+    {{#each event.redgUsers}}
+        <tr><td>firstName</td><td>lastName</td></tr>
+    {{/each}}
+    </tbody>
+    </table>
+    
+    {{#if owner }}
+    <form method='post'>
+        <input type="text" name='type' value="delete" hidden>
+        <input type="text" name='id' value={{event._id}} hidden> 
+        <button type="submit" value="Delete"></button>
+        <a href='/events/update/{{event._id}}'><input type="submit" value="Update Record"></a>
+    </form>
+    {{/if}}
 
-{{#if owner }}
-<form method='post'><input type="text" name='type' value="delete" hidden><input type="text" name='id' value={{event._id}} hidden> <input type="submit" value="Delete"></form>
-<a href='/events/update/{{event._id}}'><input type="submit" value="Update Record"></a>
-{{/if}}
-{{#if registered }}
-<form method='post' action="/users/unregevent"><input type="text" name='eventId' value={{event._id}} hidden> <input type="submit" value="Unregister"></form>
-
-{{else}}
-<form method='post' action="/users/regevent"><input type="text" name='eventId' value={{event._id}} hidden> <input type="submit" value="Register"></form>
-
-{{/if}}
+    {{#if registered }}
+    <form method='post' action="/users/unregevent">
+        <input type="text" name='eventId' value={{event._id}} hidden> 
+        <button  type="submit" value="Unregister">Unregister</button>
+    </form>
+    {{else}}
+    <form method='post' action="/users/regevent">
+        <input type="text" name='eventId' value={{event._id}} hidden> 
+        <button type="submit" value="Register">Register</button>
+    </form>
+    {{/if}}
 </div>
 </section>
+
 <link href="../../public/site.css" rel="stylesheet">

@@ -4,7 +4,7 @@ const data = require('../data');
 const events = data.events;
 const users = data.users;
 
-router.get('/', async (req,res) => {
+router.get('/multiple', async (req,res) => {
 
 let allEvents = await events.getAllEvents();
 let cancreate=false;

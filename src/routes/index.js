@@ -43,6 +43,7 @@ app.get('/auth/google/callback',
     {
       
   const userInfo = await users.getUserUpcomming(req.session.ID);
+  console.log(userInfo);
   let cancreate=false;
   if (req.session.accesslevel >=2 )
   {
