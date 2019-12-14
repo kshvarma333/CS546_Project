@@ -5,8 +5,9 @@ const events = data.events;
 
 const main = async () => {
   const db = await dbConnection();
-  //await db.dropDatabase();
+  await db.dropDatabase();
 
+  //admin login
   const adminDet = await users.createUser(
     'admin',
     'pass',
@@ -17,6 +18,7 @@ const main = async () => {
     []
   );
 
+  //trek guide login
   const userDet = await users.createUser(
     'tcardwel',
     'trek@',
