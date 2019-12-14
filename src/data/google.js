@@ -1,4 +1,3 @@
-
 // This code was learned and modified based off of https://medium.com/@54m/promises-in-express-js-apis-testing-dd0243163d57
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 module.exports = (passport) => {
