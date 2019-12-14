@@ -6,15 +6,16 @@
             <button><a href="/events/create">Create New Event</a></button>
             {{/if}}<br>
             <table border='1'>
-                <thead><tr><td>Event Name</td><td>Event Type</td><td>Location</td><td>Action</td></tr>
+                <thead><tr><td>Event Name</td><td>Event Type</td><td>Location</td><td>Date</td><td>Action</td></tr>
                 </thead>
                 <tbody>
                 {{#each events}}
-                <tr><td>{{description}}</td><td>{{name}}</td><td>{{location}}</td><td><a href="/events/single/{{_id}}">View</a></td></tr>
+                <tr><td>{{description}}</td><td>{{name}}</td><td>{{location}}</td><td>{{eventDate}}</td><td><a href="/events/single/{{_id}}">View</a></td></tr>
                 {{/each}}
                 </tbody>
             </table>
         </article>
+        <br><br><br>
         <aside id="sidebar">
             <div class="dark">
                 <h3>Hiking</h3>

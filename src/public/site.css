@@ -37,7 +37,7 @@ thead{
     font-weight: bold;
 }
 
-input[type=text], input[type=password], input[type=date], textarea{
+input[type=text], input[type=password], input[type=datetime-local], textarea{
     width: 100%;
     padding: 12px;
     border: 1px solid #ccc;
@@ -151,19 +151,19 @@ header a:hover{
 /*Sidebar*/
 aside#sidebar{
     float: right;
-    width: 30%;
-    margin-top: 10px;
+    width: 50%;
+    margin-top: 85px;
 }
 
 aside#sidebar .message input, aside#sidebar .quote textarea{
-    width: 90%;
+    width: 80%;
     padding: 2px;
 }
 
 /*main-col*/
 article#main-col{
     float: left;
-    width: 65%;
+    width: 45%;
 }
 
 

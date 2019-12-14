@@ -51,7 +51,7 @@ app.get('/auth/google/callback',
   }
   console.log(cancreate);
   
-  res.render('users/multiple',{events: userInfo, cancreate: cancreate});
+  res.render('standard/home',{events: userInfo});
   
     }
     else{
