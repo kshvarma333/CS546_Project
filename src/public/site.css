@@ -1,94 +1,204 @@
-* {
-  padding: 0;
-  margin: 0;
-} 
-
-
-body {
-background: #fff url(images/bg.jpg) repeat-x;
-font-family: Arial, Helvetica, sans-serif;
-font-size: 12px;
-line-height: 18px;
-color: #333333;;
+body{
+    font: 15px/1.5 Arial, Helvetica, sans-serif;
+    padding: 0;
+    margin: 0;
+    background-color: lightgrey;
+    overflow: scroll ;
 }
 
-img { border: none; }
-a { color: #0A6380; text-decoration: none; }
-a:hover { text-decoration: underline; color : #000; }
-
-#wrap {
-margin: 0 auto;
-width: 800px;
+/*Global*/
+.container{
+    width: 90%;
+    margin: auto;
+    overflow: hidden;
 }
 
-#header { 
-height: 150px;
-text-align: center;
+ul{
+    margin: 0;
+    padding: 0;
 }
-#header h1 {
-font-size: 30px;
-font-weight: 100;
-letter-spacing: -3px;
-padding: 40px 0 5px 0;
-}
-#header h1 a {
-color: #0A6380;
+
+a{
 text-decoration: none;
-}
-#header h1 a:hover {
-color: #222;
-text-decoration: none;
-}
-#header h2 {
-color: #3692AF;
-font-size: 19px;
-font-weight: 100;
-padding: 0 0 0 0;
-letter-spacing: -1px;
-line-height: 12px;
-display: inline-block;
+color: black;
+text-transform: uppercase;
+font-size: 18px;
 }
 
-#content {
-padding: 10px 0;
+.dark{
+    padding: 15px;
+    background: #354248;
+    color: white;
+    margin-top: -150px;
+    margin-bottom: 0;
 }
 
-.left {
-width: 568px;
-float: left;
-text-align: justify;
-}
-.left h2 {
-color: #FF4800;
-font-size: 22px;
-letter-spacing: -1px;
-font-weight: 100;
-padding : 15px 0 15px 0;
+thead{
+    font-weight: bold;
 }
 
-.right {
-width: 160px;
-float: right;
-padding: 10px;
-border-left: 1px solid #bbb;
-font-size: 12px;
+input[type=text], input[type=password], input[type=datetime-local], textarea{
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    resize: vertical;
 }
-.right ul {
-list-style-type: none;
-padding: 5px 10px 10px 10px;
-}
-.right h2 {
-height: 30px;
-font-size: 12px;
-color: #666;
-line-height: 30px;
-}
-.right a { text-decoration: none }
 
-#footer {
-border-top: 1px solid #bbb;
-text-align: center;
-color: #333;
-font-size: 11px;
-padding: 0 0 10px 0;
+label {
+    padding: 12px 12px 12px 0;
+    display: inline-block;
+}
+
+.button_1 {
+    background: orange;
+    color:black;
+    border-radius: 8px;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    float: left;
+    text-transform: uppercase;
+    font-size: 20px;
+}
+
+.button_2 {
+    background: lightgreen;
+    color:black;
+    border-radius: 8px;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    float: left;
+    text-transform: uppercase;
+    font-size: 20px;
+}
+
+/*Header*/
+header{
+    background: grey;
+    color: white;
+    width: 100%;
+    padding-top: 10px;
+    min-height: 50px;
+    border-bottom: 3px solid;
+}
+
+img#logo{
+    size: 271px 44px;
+}
+
+header a{
+    text-decoration: none;
+    color: #ffffff;
+    text-transform: uppercase;
+    font-size: 20px;
+}
+
+header li{
+    float: left;
+    display: block;
+    padding: 0 20px 0 20px;
+}
+
+header#branding{
+    float: left;
+}
+
+header#branding h1{
+    margin:0;
+}
+
+header nav{
+    float: right;
+    margin-top: 0;
+}
+
+header .highlight{
+    color: darkorange;
+    font-weight: bold;
+}
+
+header a:hover{
+    color: black;
+    font-weight: bold;
+}
+
+/* Boxes */
+#boxes{
+    margin-top: 20px;
+}
+
+#boxes .box{
+    float: left;
+    width: 30%;
+    padding: 10px;
+    text-align: justify;
+}
+
+#boxes .box img{
+    width: 360px;
+    height: 280px;
+}
+
+/*Sidebar*/
+aside#sidebar{
+    float: right;
+    width: 50%;
+    margin-top: 85px;
+}
+
+aside#sidebar .message input, aside#sidebar .quote textarea{
+    width: 80%;
+    padding: 2px;
+}
+
+/*main-col*/
+article#main-col{
+    float: left;
+    width: 45%;
+}
+
+
+footer{
+    color: #ffffff;
+    background-color: darkorange;
+    text-align: center;
+    position: relative;
+    width: 100%;
+    bottom: 0;
+}
+
+/*Media Queries*/
+@media(max-width: 600px){
+    header#branding,
+    header nav,
+    header nav li,
+    #newsletter h2,
+    #newsletter form,
+    #boxes .box,
+    #article#main-col,
+    aside#sidebar{
+        float: none;
+        text-align: center;
+        width: auto;
+        margin-top: 0;
+    }
+
+    header{
+        padding-bottom: 20px;
+    }
+
+    aside#sidebar{
+        margin-top: 170px;
+    }
+
+    footer{
+        position: relative;
+        width: 100%;
+        clear: both;
+    }
 }
