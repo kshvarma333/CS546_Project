@@ -18,9 +18,9 @@ const {ObjectId} = require('mongodb');
 //   }
 // });
 router.get('/userpage', async (req,res) => {
-  const userInfo = await users.getUser("5de3eb58e025f58f90e311f2");
+  const userInfo = await users.getUser(req.session.ID);
   console.log(userInfo);
-  res.render('/single',{events: userInfo.regdEvents, user: userInfo});
+  res.render('users/single',{events: userInfo.regdEvents, user: userInfo});
   // res.render('userInfo')
 })
 

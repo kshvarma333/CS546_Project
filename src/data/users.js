@@ -19,7 +19,7 @@ const exportedMethods = {
     if(user.regdEvents.length != undefined){
     for (const event of user.regdEvents){
       try{
-        const info = await events.getEvent(event); 
+        const info = await events.getEvent(event._id); 
       allEvents.push(info);
       }
       catch(e){

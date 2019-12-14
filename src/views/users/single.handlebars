@@ -1,9 +1,20 @@
-<h2>Welcome Trekker</h2></br>
-<h3>Registered Events</h3>
-<table border='1'><thead><tr><td>Event Name</td><td>Event Type</td><td>Location</td><td>Option</td></tr></thead><tbody>
-{{#each events}}
-<tr><td>{{name}}</td><td>{{location}}</td><td>{{location}}</td><td><a href="events/single/{{_id}}">View</a></td></tr>
-{{/each}}
+<section id="main">
+    <div class="container">
+        <article id="main-col">
+            <h2 class="page-title">All Past/Future Registered Events</h2>
+            <br>
+            <table border='1'>
+                <thead><tr><td>Event Name</td><td>Event Type</td><td>Location</td><td>Date</td><td>Action</td></tr>
+                </thead>
+                <tbody>
+                {{#each events}}
+                <tr><td>{{description}}</td><td>{{name}}</td><td>{{location}}</td><td>{{eventDate}}</td><td><a href="/events/single/{{_id}}">View</a></td></tr>
+                {{/each}}
+                </tbody>
+            </table>
+        </article>
+        <br><br><br>
+    </div>
+</section>
 
-</tbody></table>
 <link href="../public/site.css" rel="stylesheet">
