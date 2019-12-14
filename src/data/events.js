@@ -1,5 +1,6 @@
 const mongoCollections = require('./mongoCollections');
 const events = mongoCollections.events;
+const users = mongoCollections.users;
 const {
   ObjectId
 } = require('mongodb');
@@ -14,22 +15,39 @@ const exportedMethods = {
         "eventDate": {
           $gte: new Date()
         }
-      }).toArray();
+      }).sort({eventDate: 1}).toArray();
       return allevents;
     }
   },
+  async GeteventUsers(eid){
+    const userCollection = await users();
+    const regdUsers= await userCollection.find({
+      regdEvents: {$elemMatch: { _id: ObjectId(eid) }}
+    }).toArray();
+  
+    return regdUsers
 
+  },
   async getEvent(id) {
     if (typeof (id) !== "string")
       id = id.toString();
 
     const eventsCollection = await events();
-    const gevent = await eventsCollection.findOne({
+    let gevent = await eventsCollection.findOne({
       _id: ObjectId(id)
     });
-
+    
     if (!gevent)
       throw "Event Of ID " + id + " Not Found"
+    let regdUsers={}
+    try{
+      regdUsers= await this.GeteventUsers(id);
+
+    }
+    catch{
+      console.log(e);
+    }
+    gevent.regdUsers=regdUsers;
 
     return gevent;
   },
@@ -37,7 +55,7 @@ const exportedMethods = {
   async createEvent(eventInfo, createdby) {
 
     const eventCollection = await events();
-    console.log(eventInfo.eventName);
+
     let newEvent = {
       name: eventInfo.eventName,
       description: eventInfo.eventDesc,
@@ -46,8 +64,6 @@ const exportedMethods = {
       tourGuide: eventInfo.tourGuide,
       price: eventInfo.price,
       maxUsers: eventInfo.maxUsers,
-      regdUsersCount: eventInfo.regdUsersCount,
-      regdUsers: {},
       eventDate: new Date(eventInfo.eventDate),
       eventStatus: eventInfo.eventStatus
     }

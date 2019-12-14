@@ -1,4 +1,4 @@
-<div class="container"></div>
+<div class="container">
     <section id="boxes">
         <div class="box">
             <img src="../../public/img/Logo.jpg" alt="Who we are" />
@@ -16,7 +16,10 @@
             <p>When you take a trip with us, you can enjoy the deep forest camping, stay with tribals, road jeep ride trips, jungle safaris and peak climbing expeditions. Join in the community where travel explorers and tour guides teach you of how to indulge in the mind-blowing adventure!</p>
         </div>
     </section>
+    <div class="etable"> 
+    {{#if events}}
     {{#if expreq.session.authed}}
+    
     <h3>Upcomming Registered Events for the week!!!</h3>
     {{else}}
     <h3>Upcomming Events for the week!!!</h3>
@@ -31,5 +34,9 @@
             {{/each}}
         </tbody>
     </table>
-</div>
+    {{else}}
+    <h3>No Upcoming Events</h3>
+    {{/if}}
+  
+</div></div>
 <link href="../public/site.css" rel="stylesheet">

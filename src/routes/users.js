@@ -21,7 +21,7 @@ const {
 // });
 router.get('/userpage', async (req, res) => {
   const userInfo = await users.getUser(req.session.ID);
-  console.log(userInfo);
+
   res.render('users/single', {
     events: userInfo.regdEvents,
     user: userInfo
@@ -122,11 +122,12 @@ router.get("/", async (req, res) => {
   }
 
   const userInfo = await users.getUserUpcomming(req.session.ID);
+
   let cancreate = false;
   if (req.session.accesslevel >= 2) {
     cancreate = true;
   }
-  console.log(cancreate);
+
 
   res.render('users/multiple', {
     events: userInfo,
@@ -156,10 +157,10 @@ router.post('/', async (req, res) => {
         req.session.name = "AuthCookie";
         req.session.loginID = userInfo.loginID;
         req.session.authed = true;
-        console.log(user.accesslevel);
+ 
         req.session.accesslevel = user.accessLevel;
         req.session.ID = user._id;
-        console.log(req.session);
+
         res.redirect('/');
       } else {
         res.redirect('/users/signin/?login=fail');
@@ -202,9 +203,7 @@ router.post('/newuser', async (req, res) => {
     req.session.authed = true;
     req.session.accesslevel = 1;
     req.session.name = "AuthCookie";
-    res.render('users/multiple', {
-      firstName: newUser.fname
-    });
+    res.redirect('/');
   } catch (e) {
     console.log(e);
     res.send(e);

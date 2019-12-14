@@ -162,7 +162,11 @@ article#main-col{
     width: 45%;
 }
 
-
+div.etable{
+    text-align: center;
+    float: left;
+    position: relative;
+}
 footer{
     color: #ffffff;
     background-color: darkorange;
@@ -197,7 +201,8 @@ footer{
     }
 
     footer{
-        position: relative;
+        position: fixed;
+        bottom: 0;
         width: 100%;
         clear: both;
     }

@@ -2,7 +2,7 @@
     <div class="container">
         <article id="main-col">
             <h2 class="page-title">All Past/Future Registered Events</h2>
-            <br>
+            <br> {{#if events}}
             <table border='1'>
                 <thead><tr><td>Event Name</td><td>Event Type</td><td>Location</td><td>Date</td><td>Action</td></tr>
                 </thead>
@@ -12,6 +12,9 @@
                 {{/each}}
                 </tbody>
             </table>
+               {{else}}
+    <h3>No Upcoming Events</h3>
+    {{/if}}
         </article>
         <br><br><br>
     </div>

@@ -11,7 +11,7 @@ router.get('/multiple', async (req, res) => {
   if (req.session.accesslevel >= 2) {
     cancreate = true;
   }
-  console.log(cancreate);
+
   res.render('events/multiple', {
     events: allEvents,
     cancreate: cancreate
@@ -43,6 +43,7 @@ router.get('/single/:id', async (req, res) => {
   let eventId = req.params.id;
   // let user = await users.getUser("5de3eb58e025f58f90e311f2");
   let getEv = await events.getEvent(eventId);
+
   var checkreg;
   let checkowner = false;
   if (!req.session.ID) {

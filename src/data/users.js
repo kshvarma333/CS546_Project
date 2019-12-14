@@ -19,7 +19,7 @@ const exportedMethods = {
       _id: ObjectId(id)
     });
     let allEvents = []
-    console.log(user.regdEvents.length);
+
     if (user.regdEvents.length != undefined) {
       for (const event of user.regdEvents) {
         try {
@@ -31,7 +31,7 @@ const exportedMethods = {
       }
     }
     user.regdEvents = allEvents;
-    console.log(user);
+
     return user;
   },
 
@@ -41,14 +41,12 @@ const exportedMethods = {
       _id: ObjectId(id)
     });
     let allEvents = []
-    console.log(user.regdEvents.length);
+
     if (user.regdEvents.length != undefined) {
       for (const event of user.regdEvents) {
         try {
           const info = await events.getEvent(event._id);
-          var datacheck = new Date().getTime() + (30 * 24 * 60 * 60 * 1000)
-          console.log(datacheck);
-          console.log(info.eventDate);
+          var datacheck = new Date().getTime() + (7 * 24 * 60 * 60 * 1000)
 
           if (datacheck > info.eventDate) {
             allEvents.push(info);
@@ -68,9 +66,7 @@ const exportedMethods = {
     });
     if (user.regdEvents.length != undefined) {
       for (const event of user.regdEvents) {
-        console.log(event._id);
-        console.log(eid);
-        console.log(ObjectId(eid));
+
         if (event._id == eid) {
           return true;
         }
@@ -84,6 +80,13 @@ const exportedMethods = {
       loginID: uname
     });
     return getUser;
+  },
+  async getUsersByEvent(eid) {
+    const userCollection = await users();
+    const getUsers = await userCollection.find({
+      regedEvents: {_id: eid}
+    });
+    return getUsers;
   },
   async getUserByEmail(useremail) {
     const userCollection = await users();
@@ -154,7 +157,6 @@ const exportedMethods = {
       }
     };
 
-    console.log(updatedUser);
     const updatedInfo = await usersCollection.updateOne({
       _id: ObjectId(uid)
     }, updatedUser);

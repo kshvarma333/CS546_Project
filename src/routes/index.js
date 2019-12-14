@@ -31,7 +31,7 @@ const constructorMethod = app => {
           req.session.authed = true;
           req.session.accesslevel = val.accessLevel;
           req.session.ID = val._id;
-          console.log(req.session);
+
           res.redirect('/');
         } else {
           res.redirect('/users/signin?login=fail');
@@ -45,12 +45,11 @@ const constructorMethod = app => {
     if (req.session.authed) {
 
       const userInfo = await users.getUserUpcomming(req.session.ID);
-      console.log(userInfo);
+
       let cancreate = false;
       if (req.session.accesslevel >= 2) {
         cancreate = true;
       }
-      console.log(cancreate);
 
       res.render('standard/home', {
         events: userInfo

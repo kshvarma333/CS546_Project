@@ -45,7 +45,7 @@ router.get('/events', async (req, res) => {
   if (req.session.accesslevel >= 2) {
     cancreate = true;
   }
-  console.log(cancreate);
+
   res.render('events/multiple', {
     events: allEvents,
     cancreate: cancreate
