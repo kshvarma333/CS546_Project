@@ -141,7 +141,8 @@ const exportedMethods = {
     const updatedInfo = await usersCollection.updateOne({
       _id: ObjectId(id)
     }, updatedUser);
-    if (updatedInfo.modifiedCount === 0) {
+    console.log(updatedInfo);
+    if (updatedInfo.modifiedCount === 0 && updatedInfo.matchedCount != 1) {
       throw "could not update user";
     }
     return await this.getUser(id);

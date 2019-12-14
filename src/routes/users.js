@@ -29,29 +29,6 @@ router.get('/userpage', async (req, res) => {
   // res.render('userInfo')
 })
 
-
-router.put('/:id', async (req, res) => {
-  userId = req.params.id;
-  newInfo = req.body;
-
-  userId = userId.toString();
-
-  const userInfo = await users.getUser(userId);
-
-  if (!userInfo)
-    throw "User not present"
-  try {
-    const updateUser = await users.updateUser(userId, newInfo);
-
-    res.status(200).json(update);
-    // res.render()
-  } catch (e) {
-    // res.render()
-    res.status(500);
-    console.log(e);
-  }
-});
-
 router.delete("/:id", async (req, res) => {
   const userId = req.params;
   userId = userId.toString()

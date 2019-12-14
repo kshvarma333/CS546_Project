@@ -8,7 +8,7 @@ module.exports = (passport) => {
         done(null, user);
     });
     passport.use(new GoogleStrategy({
-            // I know this is not secure but we really dont have an enviorment to store in in production this would be in a sec manager or enviorment
+            // I know this is not secure but we really dont have an enviorment to store in but in production this would be in a sec manager or enviorment
             clientID: '766568379070-jeqpql9adldjb8lamhi7e54svu18a8pb.apps.googleusercontent.com',
             clientSecret: 'CI8ItaacllGw2xzPqhUzU4I5',
             callbackURL: 'http://localhost:3000/auth/google/callback'

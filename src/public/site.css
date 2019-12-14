@@ -37,7 +37,7 @@ thead{
     font-weight: bold;
 }
 
-input[type=text], input[type=password], input[type=email],input[type=datetime-local], textarea{
+input[type=text], select, input[type=password], input[type=email],input[type=datetime-local], textarea{
     width: 100%;
     padding: 12px;
     border: 1px solid #ccc;

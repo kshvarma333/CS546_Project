@@ -40,7 +40,7 @@ router.get('/users/:id', async (req, res) => {
 });
 
 router.get('/events', async (req, res) => {
-  let allEvents = await events.getAllEvents();
+  let allEvents = await events.getAllEvents(true);
   let cancreate = false;
   if (req.session.accesslevel >= 2) {
     cancreate = true;
