@@ -37,7 +37,7 @@ const exportedMethods = {
       maxUsers: eventInfo.maxUsers,
       regdUsersCount: eventInfo.regdUsersCount,
       regdUsers: {},
-      eventDate: eventInfo.eventDate,
+      eventDate: new Date(eventInfo.eventDate),
       eventStatus: eventInfo.eventStatus
     }
     const insertEvent = await eventCollection.insertOne(newEvent);
