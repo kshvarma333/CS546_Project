@@ -4,10 +4,13 @@ const {ObjectId}=require('mongodb');
 
 
 const exportedMethods = {
-  async getAllEvents() {
+  async getAllEvents(past=false) {
+    if (past==false){
     const eventsCollection = await events();
-    const allevents = await eventsCollection.find({}).toArray();
+
+    const allevents = await eventsCollection.find({"eventDate" : { $gte : new Date() } }).toArray();
     return allevents;
+    }
   },
 
   async getEvent(id) {
