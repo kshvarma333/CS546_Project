@@ -96,11 +96,17 @@ const exportedMethods = {
   },
 
 
-  async deleteEvent(id) {
+  async deleteEvent(id,uid,admin) {
     const eventsCollection = await events();
     const delEvent = await eventsCollection.findOne({
       _id: ObjectId(id)
-    });
+    });try{
+    if( !admin && uid != delEvent.createdBy){
+      throw "Not Authorized to Delete"
+    }}
+    catch{
+      console.log(e);
+    }
 
     const deleted = await eventsCollection.removeOne({
       _id: ObjectId(id)
@@ -110,9 +116,11 @@ const exportedMethods = {
 
   async getTopEvents() {
     const eventsCollection = await events();
-    const allevents = await eventsCollection.find({}).sort({
-      rating: -1
-    }).limit(5).toArray();
+    const allevents = await eventsCollection.find({
+      "eventDate": {
+        $gte: new Date()
+      }
+    }).sort({eventDate: 1}).toArray();
     return allevents;
   },
   async setRateEvent(id, rate) {

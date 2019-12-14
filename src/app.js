@@ -31,7 +31,10 @@ app.use(function (req, res, next) {
   }
   next();
 })
-
+app.use(function (err, req, res, next) {
+  console.error(err.stack)
+  res.status(500).send('Something broke!')
+})
 configRoutes(app);
 
 app.listen(3000, () => {

@@ -20,7 +20,10 @@ router.get('/multiple', async (req, res) => {
 });
 
 router.get('/update/:id', async (req, res) => {
-
+  if (req.session.accesslevel <= 1) {
+    res.redirect('/');
+    return;
+  }
   let eventId = req.params.id;
   let getEv = await events.getEvent(eventId);
   res.render('events/update', {
@@ -42,8 +45,18 @@ router.get('/create', async (req, res) => {
 router.get('/single/:id', async (req, res) => {
   let eventId = req.params.id;
   // let user = await users.getUser("5de3eb58e025f58f90e311f2");
-  let getEv = await events.getEvent(eventId);
+  let getEv = {}
+  try{
+    getEv = await events.getEvent(eventId);
+  }
+  catch{
 
+      res.sendStatus(404);
+
+  }
+  if (!getEv){
+    res.sendStatus(404);
+  }
   var checkreg;
   let checkowner = false;
   if (!req.session.ID) {
@@ -95,11 +108,16 @@ router.post('/', async (req, res) => {
 router.post('/single/:id', async (req, res) => {
   let Id = req.params.id;
   if (req.body.type == "delete") {
+    let admin = false;
+    if (req.session.accesslevel>2){
+      admin=true;
+    }
     try {
-      const delEvent = await events.deleteEvent(Id);
+      const delEvent = await events.deleteEvent(Id,req.session.ID,admin);
       res.redirect('/');
     } catch (e) {
       console.log(e);
+      res.send(e)
     }
   } else if (req.body.type == "update") {
     const update = await events.updateEvent(id, updateInfo);
