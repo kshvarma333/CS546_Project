@@ -87,7 +87,7 @@ const exportedMethods = {
     const userCollection = await users();
     let hPassword = bcrypt.hashSync(userInfo.password, 4);
     let newUser = {
-      loginID: userInfo.loginID,
+      loginID: userInfo.loginID.toLowerCase(),
       email: userInfo.email,
       hashedPassword: hPassword,
       accessLevel: 1,
@@ -97,6 +97,9 @@ const exportedMethods = {
       regdEvents:[]
     };
     
+    if(this.getUserByUsername(userInfo.loginID.toLowerCase())|| this.getUserByEmail(userInfo.email.toLowerCase())){
+      throw 'Users Exists';
+    }
     const insertedUser = await userCollection.insertOne(newUser);
     if(insertedUser.insertedCount == 0)
         throw "Could not add user"
