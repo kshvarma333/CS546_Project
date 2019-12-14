@@ -36,7 +36,7 @@ const exportedMethods = {
       price: eventInfo.price,
       maxUsers: eventInfo.maxUsers,
       regdUsersCount: eventInfo.regdUsersCount,
-      regdUsers: {},
+      regdUsers: [],
       eventDate: eventInfo.eventDate,
       eventStatus: eventInfo.eventStatus
     }
@@ -56,8 +56,7 @@ const exportedMethods = {
       throw "No update";
     }
     const eventsCollection = await events();
-    const updatedEvent = { $set:update
-    };
+    const updatedEvent = { $set:update };
 
     const updatedInfo = await eventsCollection.updateOne({ _id: ObjectId(id) }, updatedEvent);
     if (updatedInfo.modifiedCount === 0) {
@@ -77,16 +76,16 @@ const exportedMethods = {
 
   async getTopEvents() {
     const eventsCollection = await events();
-    const allevents = await eventsCollection.find({}).sort({rating : -1}).limit(5).toArray();
-    return allevents;
-  },
-  async setRateEvent(id,rate) {
-    // Need to work on.
-    const eventsCollection = await events();
-    const allevents = await eventCollection.find({_id: ObjectId(id)}).toArray();
+    const allevents = await eventsCollection.find({}).sort({eventDate : -1}).limit(5).toArray();
     return allevents;
   },
 
+  async setRateEvent(id,rate) {
+    // Need to work on.
+    const eventsCollection = await events();
+    const allevents = await eventsCollection.find({_id: ObjectId(id)}).toArray();
+    return allevents;
+  },
 
 };
 

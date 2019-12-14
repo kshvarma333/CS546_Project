@@ -80,7 +80,8 @@ const exportedMethods = {
   },
   async createUser(userInfo) {
     const userCollection = await users();
-    let hPassword = bcrypt.hashSync(userInfo.password, 4);
+    let pass = userInfo.password
+    let hPassword = await bcrypt.hashSync(pass, 4);
     let newUser = {
       loginID: userInfo.loginID,
       hashedPassword: hPassword,

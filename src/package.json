@@ -1,13 +1,14 @@
 {
-  "name": "project",
+  "name": "cs546project",
   "version": "1.0.0",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "seed": "node ./tasks/seed.js",
+    "seed": "node ./data/seed.js",
     "start": "node ./app.js"
   },
-  "author": "",
+  "author": "Group 10 - Fall 2019",
+  "keywords": ["trekking", "hiking", "adventure"],
   "license": "ISC",
   "dependencies": {
     "axios": "^0.19.0",

@@ -1,10 +1,11 @@
 const express = require('express');
 const router = express.Router();
+
 const data = require('../data');
 const events = data.events;
 const users = data.users;
 
-router.get('/', async (req,res) => {
+router.get('/multiple', async (req,res) => {
   
   let allEvents = await events.getAllEvents();
   res.render('events/multiple', {events: allEvents})
@@ -64,9 +65,9 @@ router.get('/topfive', async(req, res) => {
   // res.render()
 });
 
-router.post('/', async (req,res) => {
+router.post('/multiple', async (req,res) => {
   if (req.session.accesslevel <= 1){
-    res.redirect('/');
+    res.redirect('/multiple');
     return;
   }
   let eventInfo = req.body;

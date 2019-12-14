@@ -6,8 +6,6 @@ const users = data.users;
 const bcrypt = require("bcryptjs");
 const {ObjectId} = require('mongodb');
 
-
-
 // router.use("/", function(req,res,next) {
 //   if(req.session.name !== "AuthCookie"){
 //     // res.status(403).render(error);
@@ -17,6 +15,7 @@ const {ObjectId} = require('mongodb');
 //     next();
 //   }
 // });
+
 router.get('/index', async (req,res) => {
   const userInfo = await users.getAllUsers();
   res.render('admin/users',{events: userInfo.regdEvents, user: userInfo});
