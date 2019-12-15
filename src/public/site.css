@@ -165,7 +165,13 @@ article#main-col{
     float: left;
     width: 45%;
 }
-
+table {
+    border-collapse: collapse;
+  }
+  
+  table, th, td {
+    border: 1px solid black;
+  }
 div.etable{
     text-align: center;
     float: left;

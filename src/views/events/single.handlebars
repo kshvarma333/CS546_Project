@@ -1,5 +1,5 @@
 <section>
-<h2>Welcome Trekker</h2></br>
+<h2>Welcome Trekker</h2><br>
 <p id="result"></p>
 <div id='eventinfo'>
     <h3>Event Name: {{event.description}}</h3>
@@ -12,7 +12,7 @@
 
         {{#if event.regdUsers }}
             <h4>Registered Users:</h4>
-    <table border='1'>
+    <table>
     
     </thead>
     <tbody>
@@ -60,7 +60,7 @@
           var city = wallOfText.name;
           var country = wallOfText.sys.country;
           $("#location").text('Location: '+city +', '+country+ ' {{event.location}}');
-          $("#cweather").html('Current Weather Conidtions: <br><table border=1><tr><td>Temp</td><td>'+ wallOfText.main.temp  
+          $("#cweather").html('Current Weather Conidtions: <br><table><tr><td>Temp</td><td>'+ wallOfText.main.temp  
               +'F</td><tr><td>Conditions</td><td>'+ wallOfText.weather[0].description +'</td></tr></table>');
         }
       });
