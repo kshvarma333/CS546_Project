@@ -97,7 +97,7 @@ const exportedMethods = {
       regdEvents:[]
     };
     
-    if(this.getUserByUsername(userInfo.loginID.toLowerCase())|| this.getUserByEmail(userInfo.email.toLowerCase())){
+    if(await this.getUserByUsername(userInfo.loginID.toLowerCase())|| await this.getUserByEmail(userInfo.email.toLowerCase())){
       throw 'Users Exists';
     }
     const insertedUser = await userCollection.insertOne(newUser);
