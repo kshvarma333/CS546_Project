@@ -32,8 +32,14 @@ app.use(function (req, res, next) {
   else{
     app.locals.admin = false;
   }
+  let authstring=' (Non-Authenticated User)'
+  if (req.session.authed){
+    authstring=' (Authenticated User)'
+  }
+  console.log('['+new Date().toTimeString()+']: ' + req.method + ' ' + req.originalUrl + authstring);
   next();
 })
+
 app.use(function (err, req, res, next) {
   console.error(err.stack)
   res.status(500).send('Something broke!')

@@ -8,7 +8,6 @@ const {
 
 const exportedMethods = {
   async getAllEvents(past = false) {
-    console.log(past);
     if (past == false) {
       const eventsCollection = await events();
 
