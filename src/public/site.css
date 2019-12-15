@@ -156,6 +156,10 @@ aside#sidebar .message input, aside#sidebar .quote textarea{
     padding: 2px;
 }
 
+aside p{
+    text-align: justify;
+}
+
 /*main-col*/
 article#main-col{
     float: left;
@@ -171,7 +175,7 @@ footer{
     color: #ffffff;
     background-color: darkorange;
     text-align: center;
-    position: relative;
+    position: fixed;
     width: 100%;
     bottom: 0;
 }
@@ -197,11 +201,12 @@ footer{
     }
 
     aside#sidebar{
-        margin-top: 170px;
+        margin-top: 500px;
+        display: block;
     }
 
     footer{
-        position: fixed;
+        position: relative;
         bottom: 0;
         width: 100%;
         clear: both;

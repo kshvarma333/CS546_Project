@@ -110,7 +110,7 @@ const exportedMethods = {
     };
 
     if (await this.getUserByUsername(userInfo.loginID.toLowerCase()) || await this.getUserByEmail(userInfo.email.toLowerCase())) {
-      throw 'Users Exists';
+      throw 'User Exists';
     }
     const insertedUser = await userCollection.insertOne(newUser);
     if (insertedUser.insertedCount == 0)
