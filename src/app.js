@@ -9,22 +9,26 @@ const exphbs = require('express-handlebars');
 
 app.use('/public', static);
 app.use(express.json());
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({
+  extended: true
+}));
 
-app.engine('handlebars', exphbs({defaultLayout: 'main'}));
+app.engine('handlebars', exphbs({
+  defaultLayout: 'main'
+}));
 app.set('view engine', 'handlebars');
 
 app.use(session({
   secret: Math.random().toString(36).substring(7),
-  resave:false,
+  resave: false,
   saveUninitialized: true,
 
 }));
-app.use(function(req, res, next) {  
+app.use(function (req, res, next) {
   app.locals.expreq = req;
-    if(req.session && req.session.accesslevel && req.session.accesslevel > 2){
-      app.locals.admin = true;
-    }
+  if (req.session && req.session.accesslevel && req.session.accesslevel > 2) {
+    app.locals.admin = true;
+  }
   next();
 })
 
