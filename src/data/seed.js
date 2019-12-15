@@ -58,7 +58,7 @@ const main = async () => {
  newEvent = {
     eventName : 'Rafting',
     eventDesc : 'Rafting down the Hudson',
-    location : '18550',
+    location : '12550',
     tourGuide : 'Chirag',
     price : '$150',
     maxUsers: 10,
