@@ -95,14 +95,14 @@ const exportedMethods = {
     });
     return getUser;
   },
-  async createUser(userInfo) {
+  async createUser(userInfo,accesslevel=1) {
     const userCollection = await users();
     let hPassword = bcrypt.hashSync(userInfo.password, 4);
     let newUser = {
       loginID: userInfo.loginID.toLowerCase(),
       email: userInfo.email.toLowerCase(),
       hashedPassword: hPassword,
-      accessLevel: 1,
+      accessLevel: accesslevel,
       fname: userInfo.firstName,
       lname: userInfo.lastName,
       location: userInfo.location,

@@ -26,8 +26,11 @@ app.use(session({
 }));
 app.use(function (req, res, next) {
   app.locals.expreq = req;
-  if (req.session && req.session.accesslevel && req.session.accesslevel > 2) {
+  if (req.session.accesslevel > 2) {
     app.locals.admin = true;
+  }
+  else{
+    app.locals.admin = false;
   }
   next();
 })
