@@ -28,14 +28,16 @@ const exportedMethods = {
     }
   },
   async GeteventUsers(eid){
-    const userCollection = await users();
-    const regdUsers= await userCollection.find({
-      regdEvents: {$elemMatch: { _id: ObjectId(eid) }}
-    }).toArray();
-  
-    return regdUsers
-
+    if(eid == undefined) throw "Id doesn't exist"
+    else if (typeof(eid) !== "string") 
+    {
+     eid = eid.toString();
+      const userCollection = await users();
+      const regdUsers= await userCollection.find({regdEvents: {$elemMatch: { _id: ObjectId(eid) }} }).toArray();
+      return regdUsers
+    }
   },
+
   async getEvent(id) {
     if (typeof (id) !== "string")
       id = id.toString();
@@ -50,42 +52,50 @@ const exportedMethods = {
     let regdUsers={}
     try{
       regdUsers= await this.GeteventUsers(id);
-
     }
     catch{
       console.log(e);
     }
     gevent.regdUsers=regdUsers;
-
     return gevent;
   },
 
   async createEvent(eventInfo, createdby) {
+    if(!eventInfo) throw "No input data"
+    else 
+    if(typeof (eventInfo.eventName) !== "string" || typeof (eventInfo.tourGuide) !== "string" )
+    throw "Input is not in correct format" 
+    else if(isNaN(eventInfo.location)) 
+      throw "Provide Zip Code!"
+    else if(isNaN(eventInfo.maxUsers))
+      throw "Provide a number for Maximum users"
+    else{
+      const eventCollection = await events();
 
-    const eventCollection = await events();
+      let newEvent = {
+        name: eventInfo.eventName,
+        description: eventInfo.eventDesc,
+        createdBy: createdby,
+        location: eventInfo.location,
+        tourGuide: eventInfo.tourGuide,
+        price: eventInfo.price,
+        maxUsers: eventInfo.maxUsers,
+        eventDate: new Date(eventInfo.eventDate),
+        eventStatus: eventInfo.eventStatus
+      }
+      const insertEvent = await eventCollection.insertOne(newEvent);
+      if (insertEvent.insertedCount == 0)
+        throw "Could not add Event";
 
-    let newEvent = {
-      name: eventInfo.eventName,
-      description: eventInfo.eventDesc,
-      createdBy: createdby,
-      location: eventInfo.location,
-      tourGuide: eventInfo.tourGuide,
-      price: eventInfo.price,
-      maxUsers: eventInfo.maxUsers,
-      eventDate: new Date(eventInfo.eventDate),
-      eventStatus: eventInfo.eventStatus
+      const Id = insertEvent.insertedId;
+      const eve = exportedMethods.getEvent(Id);
+      return eve;
     }
-    const insertEvent = await eventCollection.insertOne(newEvent);
-    if (insertEvent.insertedCount == 0)
-      throw "Could not add Event";
-
-    const Id = insertEvent.insertedId;
-    const eve = exportedMethods.getEvent(Id);
-    return eve;
   },
 
   async updateEvent(id, update) {
-    id = id.toString()
+    id = id.toString();
+    
     if (!id || !update) {
       throw "No update";
     }
