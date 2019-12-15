@@ -44,15 +44,17 @@ const exportedMethods = {
 
     if (user.regdEvents.length != undefined) {
       for (const event of user.regdEvents) {
+        let info ={}
         try {
-          const info = await events.getEvent(event._id);
+          info = await events.getEvent(event._id);
           var datacheck = new Date().getTime() + (7 * 24 * 60 * 60 * 1000)
+          
 
-          if (datacheck > info.eventDate) {
-            allEvents.push(info);
-          }
         } catch (e) {
           console.log(e);
+        }
+        if (datacheck > info.eventDate && info.eventDate>= new Date()) {
+          allEvents.push(info);
         }
       }
     }

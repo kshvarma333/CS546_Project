@@ -52,10 +52,12 @@ router.get('/single/:id', async (req, res) => {
   catch{
 
       res.sendStatus(404);
+      return;
 
   }
   if (!getEv){
     res.sendStatus(404);
+    return;
   }
   var checkreg;
   let checkowner = false;
