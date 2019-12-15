@@ -79,7 +79,7 @@ label {
 
 /*Header*/
 header{
-    background: grey;
+    background: #767676;
     color: white;
     width: 100%;
     padding-top: 10px;
@@ -118,7 +118,7 @@ header nav{
 }
 
 header .highlight{
-    color: darkorange;
+    color: #ffd9ca;
     font-weight: bold;
 }
 
@@ -179,7 +179,7 @@ div.etable{
 }
 footer{
     color: #ffffff;
-    background-color: darkorange;
+    background-color: #b46100;
     text-align: center;
     position: fixed;
     width: 100%;

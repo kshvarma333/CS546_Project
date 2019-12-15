@@ -13,7 +13,12 @@ const exportedMethods = {
     const allusers = await usersCollection.find({}).toArray();
     return allusers;
   },
+
   async getUser(id) {
+    if(id == undefined) throw "Id doesn't exist"
+    else (typeof(id) !== "string")
+      id = id.toString();
+
     const usersCollection = await users();
     const user = await usersCollection.findOne({
       _id: ObjectId(id)
@@ -36,6 +41,10 @@ const exportedMethods = {
   },
 
   async getUserUpcomming(id) {
+    if(id == undefined) throw "Id doesn't exist"
+    else (typeof(id) !== "string")
+      id = id.toString();
+
     const usersCollection = await users();
     const user = await usersCollection.findOne({
       _id: ObjectId(id)
@@ -62,6 +71,13 @@ const exportedMethods = {
   },
 
   async checkReg(id, eid) {
+    if(id == undefined || eid == undefined) throw "Id doesn't exist"
+    else (typeof(id) !== "string" || typeof(eid) !== "string")
+    {
+      id = id.toString();
+      eid = eid.toString();
+    }
+
     const usersCollection = await users();
     const user = await usersCollection.findOne({
       _id: ObjectId(id)
@@ -76,40 +92,62 @@ const exportedMethods = {
     }
     return false;
   },
+
   async getUserByUsername(uname) {
+    if(uname == undefined) throw "User Name doesnt exist"
+    else if(typeof uname != 'string') throw "Not a valid name"
+    else{
     const userCollection = await users();
     const getUser = await userCollection.findOne({
       loginID: uname
     });
     return getUser;
+    }
   },
+
   async getUsersByEvent(eid) {
+    if(eid == undefined) throw "Id doesn't exist"
+    else (typeof(eid) !== "string")
+      id = id.toString();
     const userCollection = await users();
     const getUsers = await userCollection.find({
       regedEvents: {_id: eid}
     });
     return getUsers;
   },
+
   async getUserByEmail(useremail) {
-    const userCollection = await users();
-    const getUser = await userCollection.findOne({
-      email: useremail.toLowerCase()
-    });
-    return getUser;
+    if(useremail == undefined) throw "User eMail doesnt exist"
+    else if(typeof useremail != 'string') throw "Not a valid eMail"
+    else{
+      const userCollection = await users();
+      const getUser = await userCollection.findOne({
+        email: useremail.toLowerCase()
+      });
+      return getUser;
+    }
   },
+
   async createUser(userInfo,accesslevel=1) {
-    const userCollection = await users();
-    let hPassword = bcrypt.hashSync(userInfo.password, 4);
-    let newUser = {
-      loginID: userInfo.loginID.toLowerCase(),
-      email: userInfo.email.toLowerCase(),
-      hashedPassword: hPassword,
-      accessLevel: accesslevel,
-      fname: userInfo.firstName,
-      lname: userInfo.lastName,
-      location: userInfo.location,
-      regdEvents: []
-    };
+    if(!userInfo) throw "No input provided"
+    else 
+    if(typeof (userInfo.firstName) !== "string" || typeof(userInfo.lastName) !== "string")
+    throw "Not valid input"
+    else
+    {
+      var userCollection = await users();
+      let hPassword = bcrypt.hashSync(userInfo.password, 4);
+      let newUser = {
+        loginID: userInfo.loginID.toLowerCase(),
+        email: userInfo.email.toLowerCase(),
+        hashedPassword: hPassword,
+        accessLevel: accesslevel,
+        fname: userInfo.firstName,
+        lname: userInfo.lastName,
+        location: userInfo.location,
+        regdEvents: []
+    }
+    
 
     if (await this.getUserByUsername(userInfo.loginID.toLowerCase()) || await this.getUserByEmail(userInfo.email.toLowerCase())) {
       throw 'User Exists';
@@ -121,19 +159,27 @@ const exportedMethods = {
     const Id = insertedUser.insertedId;
     const user = exportedMethods.getUser(Id);
     return user;
-
+    }
   },
+
   async deleteUser(id) {
+    if(id === undefined) throw "Id doesn't exist"
+    else (typeof(id) !== "string")
+      id = id.toString();
     const usersCollection = await users();
     const deleted = await usersCollection.removeOne({
       _id: ObjectId(id)
     });
     return deleted;
   },
+  
   async updateUser(id, update) {
-    id = id.toString()
+    if(id == undefined) throw "Id doesn't exist"
+    else (typeof(id) !== "string")
+      id = id.toString();
+    
     if (!id || !update) {
-      throw "bad update";
+      throw "Bad update";
     }
     const usersCollection = await users();
     const updatedUser = {
@@ -145,12 +191,19 @@ const exportedMethods = {
     }, updatedUser);
     console.log(updatedInfo);
     if (updatedInfo.modifiedCount === 0 && updatedInfo.matchedCount != 1) {
-      throw "could not update user";
+      throw "Could not update user";
     }
     return await this.getUser(id);
   },
 
   async setUserFollowEvent(uid, eid) {
+    if(uid == undefined || eid == undefined) throw "Id doesn't exist"
+    else (typeof(uid) !== "string" || typeof(eid) !== "string")
+      {
+        uid = uid.toString();
+        eid = eid.toString();
+      }
+    
     const usersCollection = await users();
     const updatedUser = {
       $addToSet: {
@@ -165,7 +218,15 @@ const exportedMethods = {
     }, updatedUser);
     return updatedInfo;
   },
+
   async unsetUserFollowEvent(uid, eid) {
+    if(uid == undefined || eid == undefined) throw "Id doesn't exist"
+    else (typeof(uid) !== "string" || typeof(eid) !== "string")
+      {
+        uid = uid.toString();
+        eid = eid.toString();
+      }
+    
     const usersCollection = await users();
     const updatedInfo = await usersCollection.updateOne({
       _id: ObjectId(uid)
@@ -177,7 +238,7 @@ const exportedMethods = {
       }
     });
     return updatedInfo;
-  },
+  }
 };
 
 module.exports = exportedMethods;

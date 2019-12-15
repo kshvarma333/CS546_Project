@@ -11,12 +11,13 @@ const main = async () => {
   Admin={
     loginID: 'admin',
     email: 'null',
-    password: 'test1234',
+    password: 'test12345',
     firstName: 'Admin',
     lastName: 'Owner',
-    location: '07082',
+    location: '08536',
     regdEvents: []
   }
+  //Tour guide
   tguide={
     loginID: 'tguide',
     email: 'null1',
@@ -26,29 +27,28 @@ const main = async () => {
     location: '07082',
     regdEvents: []
   }
+  //User
   user={
     loginID: 'vaishnavi',
     email: 'null2',
-    password: 'test1234',
+    password: 'test123',
     firstName: 'Vaishnavi',
     lastName: 'Gopal',
-    location: '07082',
+    location: '07030',
     regdEvents: []
   }
   await users.createUser(Admin,3);
   let tourg = await users.createUser(tguide,2);
   await users.createUser(user,1);
   var date = new Date();
-
-  
   
   let newEvent = {
     eventName : 'Hiking',
-    eventDesc : 'Appalachian Hikinh',
+    eventDesc : 'Appalachian Hiking',
     location : '10988',
     tourGuide : 'Trevor',
-    price : '$20',
-    maxUsers: 10,
+    price : '$200',
+    maxUsers: 20,
     eventDate: date.setDate(date.getDate() + 1),
     eventStatus: 'open'
   }
@@ -57,12 +57,25 @@ const main = async () => {
 
  newEvent = {
     eventName : 'Rafting',
-    eventDesc : 'Rafting down the river',
-    location : '18327',
-    tourGuide : 'Trevor',
-    price : '$20',
+    eventDesc : 'Rafting down the Hudson',
+    location : '12550',
+    tourGuide : 'Chirag',
+    price : '$150',
     maxUsers: 10,
     eventDate: date.setDate(date.getDate() + 9),
+    eventStatus: 'open'
+  }
+
+  await events.createEvent(newEvent,tourg._id.toString())
+
+  newEvent = {
+    eventName : 'Bungee Jumping',
+    eventDesc : 'Jump from the top',
+    location : '18327',
+    tourGuide : 'Vaishnavi',
+    price : '$100',
+    maxUsers: 1,
+    eventDate: date.setDate(date.getDate() - 12),
     eventStatus: 'open'
   }
 
